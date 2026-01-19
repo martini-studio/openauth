@@ -32,7 +32,7 @@ import {
 } from "../provider/password.js"
 import { Layout } from "./base.js"
 import "./form.js"
-import { FormAlert } from "./form.js"
+import { FormAlert, FORM_ONSUBMIT } from "./form.js"
 
 const DEFAULT_COPY = {
   /**
@@ -163,7 +163,11 @@ export function PasswordUI(input: PasswordUIOptions): PasswordConfig {
     login: async (_req, form, error): Promise<Response> => {
       const jsx = (
         <Layout>
-          <form data-component="form" method="post">
+          <form
+            data-component="form"
+            method="post"
+            onsubmit={FORM_ONSUBMIT}
+          >
             <FormAlert message={error?.type && copy?.[`error_${error.type}`]} />
             <input
               data-component="input"
@@ -216,7 +220,11 @@ export function PasswordUI(input: PasswordUIOptions): PasswordConfig {
       ].includes(error?.type || "")
       const jsx = (
         <Layout>
-          <form data-component="form" method="post">
+          <form
+            data-component="form"
+            method="post"
+            onsubmit={FORM_ONSUBMIT}
+          >
             <FormAlert
               message={
                 error?.type
@@ -304,7 +312,12 @@ export function PasswordUI(input: PasswordUIOptions): PasswordConfig {
       ].includes(error?.type || "")
       const jsx = (
         <Layout>
-          <form data-component="form" method="post" replace>
+          <form
+            data-component="form"
+            method="post"
+            replace
+            onsubmit={FORM_ONSUBMIT}
+          >
             <FormAlert
               message={
                 error?.type
@@ -374,7 +387,7 @@ export function PasswordUI(input: PasswordUIOptions): PasswordConfig {
             <button data-component="button">{copy.button_continue}</button>
           </form>
           {state.type === "code" && (
-            <form method="post">
+            <form method="post" onsubmit={FORM_ONSUBMIT}>
               <input type="hidden" name="action" value="code" />
               <input type="hidden" name="email" value={state.email} />
               {state.type === "code" && (

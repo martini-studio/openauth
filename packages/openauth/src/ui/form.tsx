@@ -1,5 +1,8 @@
 /** @jsxImportSource hono/jsx */
 
+export const FORM_ONSUBMIT =
+  "this.querySelectorAll('input:not([type=hidden]), button').forEach(el => el.disabled = true)"
+
 export function FormAlert(props: {
   message?: string
   color?: "danger" | "success"

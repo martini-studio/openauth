@@ -27,7 +27,7 @@
 import { CodeProviderOptions } from "../provider/code.js"
 import { UnknownStateError } from "../error.js"
 import { Layout } from "./base.js"
-import { FormAlert } from "./form.js"
+import { FormAlert, FORM_ONSUBMIT } from "./form.js"
 
 const DEFAULT_COPY = {
   /**
@@ -122,7 +122,11 @@ export function CodeUI(props: CodeUIOptions): CodeProviderOptions {
       if (state.type === "start") {
         const jsx = (
           <Layout>
-            <form data-component="form" method="post">
+            <form
+              data-component="form"
+              method="post"
+              onsubmit={FORM_ONSUBMIT}
+            >
               {error?.type === "invalid_claim" && (
                 <FormAlert message={copy.email_invalid} />
               )}
@@ -151,7 +155,12 @@ export function CodeUI(props: CodeUIOptions): CodeProviderOptions {
       if (state.type === "code") {
         const jsx = (
           <Layout>
-            <form data-component="form" class="form" method="post">
+            <form
+              data-component="form"
+              class="form"
+              method="post"
+              onsubmit={FORM_ONSUBMIT}
+            >
               {error?.type === "invalid_code" && (
                 <FormAlert message={copy.code_invalid} />
               )}
@@ -179,7 +188,7 @@ export function CodeUI(props: CodeUIOptions): CodeProviderOptions {
               />
               <button data-component="button">{copy.button_continue}</button>
             </form>
-            <form method="post">
+            <form method="post" onsubmit={FORM_ONSUBMIT}>
               {Object.entries(state.claims).map(([key, value]) => (
                 <input
                   key={key}
