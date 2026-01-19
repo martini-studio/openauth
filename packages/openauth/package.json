@@ -3,9 +3,8 @@
   "version": "0.4.4",
   "type": "module",
   "scripts": {
-    "build": "bun run ./script/build.ts",
-    "test": "bun test",
-    "prepare": "bun run build"
+    "build": "bun run script/build.ts",
+    "test": "bun test"
   },
   "sideEffects": false,
   "devDependencies": {
