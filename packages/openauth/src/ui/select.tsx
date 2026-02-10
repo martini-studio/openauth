@@ -64,12 +64,20 @@ export function Select(props?: SelectProps) {
     providers: Record<string, string>,
     _req: Request,
   ): Promise<Response> => {
+    const visible = Object.entries(providers).filter(
+      ([key]) => !props?.providers?.[key]?.hide,
+    )
+    if (visible.length === 1) {
+      return Response.redirect(
+        new URL(`/${visible[0][0]}/authorize`, _req.url).toString(),
+        302,
+      )
+    }
     const jsx = (
       <Layout>
         <div data-component="form">
-          {Object.entries(providers).map(([key, type]) => {
+          {visible.map(([key, type]) => {
             const match = props?.providers?.[key]
-            if (match?.hide) return
             const icon = ICON[key]
             return (
               <a
